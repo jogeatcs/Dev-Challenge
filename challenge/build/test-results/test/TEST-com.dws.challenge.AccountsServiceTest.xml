@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<testsuite name="com.dws.challenge.AccountsServiceTest" tests="2" skipped="0" failures="0" errors="0" timestamp="2023-03-30T17:23:46" hostname="192.168.1.7" time="0.013">
+  <properties/>
+  <testcase name="addAccount()" classname="com.dws.challenge.AccountsServiceTest" time="0.004"/>
+  <testcase name="addAccount_failsOnDuplicateId()" classname="com.dws.challenge.AccountsServiceTest" time="0.005"/>
+  <system-out><![CDATA[2023-03-30 22:53:45.561  INFO 36088 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Neither @ContextConfiguration nor @ContextHierarchy found for test class [com.dws.challenge.AccountsServiceTest], using SpringBootContextLoader
+2023-03-30 22:53:45.563  INFO 36088 --- [    Test worker] o.s.t.c.support.AbstractContextLoader    : Could not detect default resource locations for test class [com.dws.challenge.AccountsServiceTest]: no resource found for suffixes {-context.xml, Context.groovy}.
+2023-03-30 22:53:45.582  INFO 36088 --- [    Test worker] t.c.s.AnnotationConfigContextLoaderUtils : Could not detect default configuration classes for test class [com.dws.challenge.AccountsServiceTest]: AccountsServiceTest does not declare any static, non-private, non-final, nested classes annotated with @Configuration.
+2023-03-30 22:53:45.648  INFO 36088 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Found @SpringBootConfiguration com.dws.challenge.ChallengeApplication for test class com.dws.challenge.AccountsServiceTest
+2023-03-30 22:53:45.657  INFO 36088 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Loaded default TestExecutionListener class names from location [META-INF/spring.factories]: [org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener, org.springframework.test.context.web.ServletTestExecutionListener, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener, org.springframework.test.context.event.ApplicationEventsTestExecutionListener, org.springframework.test.context.support.DependencyInjectionTestExecutionListener, org.springframework.test.context.support.DirtiesContextTestExecutionListener, org.springframework.test.context.transaction.TransactionalTestExecutionListener, org.springframework.test.context.jdbc.SqlScriptsTestExecutionListener, org.springframework.test.context.event.EventPublishingTestExecutionListener]
+2023-03-30 22:53:45.661  INFO 36088 --- [    Test worker] .b.t.c.SpringBootTestContextBootstrapper : Using TestExecutionListeners: [org.springframework.test.context.web.ServletTestExecutionListener@4070ace9, org.springframework.test.context.support.DirtiesContextBeforeModesTestExecutionListener@722b2728, org.springframework.test.context.event.ApplicationEventsTestExecutionListener@740c4868, org.springframework.boot.test.mock.mockito.MockitoTestExecutionListener@5f3f3d00, org.springframework.boot.test.autoconfigure.SpringBootDependencyInjectionTestExecutionListener@1a6dc5ea, org.springframework.test.context.support.DirtiesContextTestExecutionListener@31d4b3e8, org.springframework.test.context.event.EventPublishingTestExecutionListener@278de2b2, org.springframework.boot.test.autoconfigure.restdocs.RestDocsTestExecutionListener@1fc1c7e, org.springframework.boot.test.autoconfigure.web.client.MockRestServiceServerResetTestExecutionListener@75cacb3e, org.springframework.boot.test.autoconfigure.web.servlet.MockMvcPrintOnlyOnFailureTestExecutionListener@61957d9c, org.springframework.boot.test.autoconfigure.web.servlet.WebDriverTestExecutionListener@29c59b6e, org.springframework.boot.test.autoconfigure.webservices.client.MockWebServiceServerTestExecutionListener@483b7dc4, org.springframework.boot.test.mock.mockito.ResetMocksTestExecutionListener@6b8bdcc6]
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+ :: Spring Boot ::               (v2.7.10)
+
+2023-03-30 22:53:45.784  INFO 36088 --- [    Test worker] com.dws.challenge.AccountsServiceTest    : Starting AccountsServiceTest using Java 17.0.6 on 192.168.1.5 with PID 36088 (started by m in /Users/m/Documents/workspace/challenge)
+2023-03-30 22:53:45.785  INFO 36088 --- [    Test worker] com.dws.challenge.AccountsServiceTest    : No active profile set, falling back to 1 default profile: "default"
+2023-03-30 22:53:46.678  INFO 36088 --- [    Test worker] com.dws.challenge.AccountsServiceTest    : Started AccountsServiceTest in 1.011 seconds (JVM running for 9.957)
+]]></system-out>
+  <system-err><![CDATA[]]></system-err>
+</testsuite>
