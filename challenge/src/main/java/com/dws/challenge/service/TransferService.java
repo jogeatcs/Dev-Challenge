@@ -35,26 +35,29 @@ public class TransferService {
 	 */
 	@Transactional
 	public void transfer(String fromBankAccountId, String toBankAccountId, BigDecimal amount) {
-		if(amount.signum() < 0) {
-			throw new IllegalArgumentException("Transfer amount is negative : "+amount);
+		if (amount.signum() < 0) {
+			throw new IllegalArgumentException("Transfer amount is negative : " + amount);
 		}
 		Account fromBankAccount = transferRepository.findByAccountId(fromBankAccountId);
-		if(fromBankAccount == null) {
+		if (fromBankAccount == null) {
 			throw new AccountNotExistException("Account with id:" + fromBankAccountId + " does not exist.");
 		}
 		Account toBankAccount = transferRepository.findByAccountId(toBankAccountId);
-		
-		if(toBankAccount == null) {
+
+		if (toBankAccount == null) {
 			throw new AccountNotExistException("Account with id:" + toBankAccountId + " does not exist.");
 		}
 		if (fromBankAccount.getBalance().compareTo(amount) < 0) {
-			throw new InsufficientBalanceException("Account with id:" + fromBankAccount.getAccountId() + " does not have enough balance to transfer.");
+			throw new InsufficientBalanceException(
+					"Account with id:" + fromBankAccount.getAccountId() + " does not have enough balance to transfer.");
 		}
-		fromBankAccount.setBalance(fromBankAccount.getBalance().subtract(amount));
-		toBankAccount.setBalance(toBankAccount.getBalance().add(amount));
-		
-		transferRepository.save(fromBankAccount);
-		
+		synchronized (this) {
+			fromBankAccount.setBalance(fromBankAccount.getBalance().subtract(amount));
+			toBankAccount.setBalance(toBankAccount.getBalance().add(amount));
+			transferRepository.save(fromBankAccount);
+			transferRepository.save(toBankAccount);
+		}
+
 		notificationService.notifyAboutTransfer(new com.dws.challenge.domain.AccountDto(toBankAccountId),
 				"Amount :" + amount + " transferd successfully to : " + toBankAccountId);
 		notificationService.notifyAboutTransfer(new com.dws.challenge.domain.AccountDto(fromBankAccountId),
@@ -68,7 +71,7 @@ public class TransferService {
 	 */
 	public AccountDto getAccount(String accountId) {
 		Account accountEntity = transferRepository.findByAccountId(accountId);
-		return  new AccountDto(accountEntity.getAccountId(), accountEntity.getBalance());
+		return new AccountDto(accountEntity.getAccountId(), accountEntity.getBalance());
 	}
 
 }
