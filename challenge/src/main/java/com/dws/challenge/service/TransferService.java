@@ -47,10 +47,7 @@ public class TransferService {
 		if (toBankAccount == null) {
 			throw new AccountNotExistException("Account with id:" + toBankAccountId + " does not exist.");
 		}
-		if (fromBankAccount.getBalance().compareTo(amount) < 0) {
-			throw new InsufficientBalanceException(
-					"Account with id:" + fromBankAccount.getAccountId() + " does not have enough balance to transfer.");
-		}
+		
 		String fromAccountId = fromBankAccount.getId().toString().intern();
 		String toAccountId = toBankAccount.getId().toString().intern();
 		String lock1, lock2;
@@ -65,6 +62,10 @@ public class TransferService {
 
 		synchronized (lock1) {
 			synchronized (lock2) {
+				if (fromBankAccount.getBalance().compareTo(amount) < 0) {
+					throw new InsufficientBalanceException(
+							"Account with id:" + fromBankAccount.getAccountId() + " does not have enough balance to transfer.");
+				}
 				fromBankAccount.setBalance(fromBankAccount.getBalance().subtract(amount));
 				toBankAccount.setBalance(toBankAccount.getBalance().add(amount));
 				transferRepository.save(fromBankAccount);
