@@ -9,7 +9,7 @@ import static org.springframework.test.web.servlet.setup.MockMvcBuilders.webAppC
 
 import java.math.BigDecimal;
 
-import com.dws.challenge.domain.Account;
+import com.dws.challenge.domain.AccountDto;
 import com.dws.challenge.service.AccountsService;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -48,9 +48,9 @@ class AccountsControllerTest {
     this.mockMvc.perform(post("/v1/accounts").contentType(MediaType.APPLICATION_JSON)
       .content("{\"accountId\":\"Id-123\",\"balance\":1000}")).andExpect(status().isCreated());
 
-    Account account = accountsService.getAccount("Id-123");
+    AccountDto account = accountsService.getAccount("Id-123");
     assertThat(account.getAccountId()).isEqualTo("Id-123");
-    assertThat(account.getBalance()).isEqualByComparingTo(1000d);
+    assertThat(account.getBalance()).isEqualByComparingTo("1000");
   }
 
   @Test
@@ -66,6 +66,12 @@ class AccountsControllerTest {
   void createAccountNoAccountId() throws Exception {
     this.mockMvc.perform(post("/v1/accounts").contentType(MediaType.APPLICATION_JSON)
       .content("{\"balance\":1000}")).andExpect(status().isBadRequest());
+  }
+
+  @Test
+  void createAccountNoBalance() throws Exception {
+    this.mockMvc.perform(post("/v1/accounts").contentType(MediaType.APPLICATION_JSON)
+      .content("{\"accountId\":\"Id-123\"}")).andExpect(status().isBadRequest());
   }
 
   @Test
@@ -89,7 +95,7 @@ class AccountsControllerTest {
   @Test
   void getAccount() throws Exception {
     String uniqueAccountId = "Id-" + System.currentTimeMillis();
-    Account account = new Account(uniqueAccountId, 123.45);
+    AccountDto account = new AccountDto(uniqueAccountId, new BigDecimal("123.45"));
     this.accountsService.createAccount(account);
     this.mockMvc.perform(get("/v1/accounts/" + uniqueAccountId))
       .andExpect(status().isOk())

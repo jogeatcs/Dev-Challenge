@@ -5,7 +5,7 @@ import static org.junit.jupiter.api.Assertions.fail;
 
 import java.math.BigDecimal;
 
-import com.dws.challenge.domain.Account;
+import com.dws.challenge.domain.AccountDto;
 import com.dws.challenge.exception.DuplicateAccountIdException;
 import com.dws.challenge.service.AccountsService;
 import org.junit.jupiter.api.Test;
@@ -23,8 +23,8 @@ class AccountsServiceTest {
 
   @Test
   void addAccount() {
-    Account account = new Account("Id-123");
-    account.setBalance(1000);
+    AccountDto account = new AccountDto("Id-123");
+    account.setBalance(new BigDecimal(1000));
     this.accountsService.createAccount(account);
 
     assertThat(this.accountsService.getAccount("Id-123")).isEqualTo(account);
@@ -33,7 +33,7 @@ class AccountsServiceTest {
   @Test
   void addAccount_failsOnDuplicateId() {
     String uniqueId = "Id-" + System.currentTimeMillis();
-    Account account = new Account(uniqueId);
+    AccountDto account = new AccountDto(uniqueId);
     this.accountsService.createAccount(account);
 
     try {

@@ -1,6 +1,6 @@
 package com.dws.challenge.web;
 
-import com.dws.challenge.domain.Account;
+import com.dws.challenge.domain.AccountDto;
 import com.dws.challenge.exception.DuplicateAccountIdException;
 import com.dws.challenge.service.AccountsService;
 import lombok.extern.slf4j.Slf4j;
@@ -30,7 +30,7 @@ public class AccountsController {
   }
 
   @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-  public ResponseEntity<Object> createAccount(@RequestBody @Valid Account account) {
+  public ResponseEntity<Object> createAccount(@RequestBody @Valid AccountDto account) {
    // log.info("Creating account {}", account);
 
     try {
@@ -43,7 +43,7 @@ public class AccountsController {
   }
 
   @GetMapping(path = "/{accountId}")
-  public Account getAccount(@PathVariable String accountId) {
+  public AccountDto getAccount(@PathVariable String accountId) {
     //log.info("Retrieving account for id {}", accountId);
     return this.accountsService.getAccount(accountId);
   }

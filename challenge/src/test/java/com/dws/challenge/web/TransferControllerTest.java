@@ -19,7 +19,7 @@ import org.springframework.test.context.web.WebAppConfiguration;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.web.context.WebApplicationContext;
 
-import com.dws.challenge.domain.Account;
+import com.dws.challenge.domain.AccountDto;
 import com.dws.challenge.service.AccountsService;
 import com.dws.challenge.service.NotificationService;
 import com.dws.challenge.service.TransferService;

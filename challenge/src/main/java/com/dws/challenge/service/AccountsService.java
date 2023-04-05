@@ -1,6 +1,6 @@
 package com.dws.challenge.service;
 
-import com.dws.challenge.domain.Account;
+import com.dws.challenge.domain.AccountDto;
 import com.dws.challenge.repository.AccountsRepository;
 import lombok.Getter;
 
@@ -19,11 +19,11 @@ public class AccountsService {
     this.accountsRepository = accountsRepository;
   }
 
-  public void createAccount(Account account) {
+  public void createAccount(AccountDto account) {
     this.accountsRepository.createAccount(account);
   }
 
-  public Account getAccount(String accountId) {
+  public AccountDto getAccount(String accountId) {
     return this.accountsRepository.getAccount(accountId);
   }
 
