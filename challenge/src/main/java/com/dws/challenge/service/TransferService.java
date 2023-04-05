@@ -51,13 +51,26 @@ public class TransferService {
 			throw new InsufficientBalanceException(
 					"Account with id:" + fromBankAccount.getAccountId() + " does not have enough balance to transfer.");
 		}
-		synchronized (this) {
-			fromBankAccount.setBalance(fromBankAccount.getBalance().subtract(amount));
-			toBankAccount.setBalance(toBankAccount.getBalance().add(amount));
-			transferRepository.save(fromBankAccount);
-			transferRepository.save(toBankAccount);
+		String fromAccountId = fromBankAccount.getId().toString().intern();
+		String toAccountId = toBankAccount.getId().toString().intern();
+		String lock1, lock2;
+
+		if (fromBankAccount.getId() < toBankAccount.getId()) {
+			lock1 = fromAccountId;
+			lock2 = toAccountId;
+		} else {
+			lock1 = toAccountId;
+			lock2 = fromAccountId;
 		}
 
+		synchronized (lock1) {
+			synchronized (lock2) {
+				fromBankAccount.setBalance(fromBankAccount.getBalance().subtract(amount));
+				toBankAccount.setBalance(toBankAccount.getBalance().add(amount));
+				transferRepository.save(fromBankAccount);
+				transferRepository.save(toBankAccount);
+			}
+		}
 		notificationService.notifyAboutTransfer(new com.dws.challenge.domain.AccountDto(toBankAccountId),
 				"Amount :" + amount + " transferd successfully to : " + toBankAccountId);
 		notificationService.notifyAboutTransfer(new com.dws.challenge.domain.AccountDto(fromBankAccountId),
